@@ -2,22 +2,18 @@ import streamlit as st
 import sys
 sys.setrecursionlimit(55000)
 import pandas as pd
+import numpy as np
+import nltk
 import warnings
+import streamlit.components.v1 as components
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Plotting
 import matplotlib.pyplot as plt
 st.set_option('deprecation.showPyplotGlobalUse', False)
+from PIL import Image
 import numpy as np
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-import requests
-import io
 
-url = 'https://raw.githubusercontent.com/hpsuresh12345/Streamlit/main/data/pre-processed.csv'
-download = requests.get(url).content
-df = pd.read_csv(io.StringIO(download.decode('utf-8')))
-print (df.head())
-
-# streamlit
 header = st.beta_container()
 dataset = st.beta_container()
 topic_modeling = st.beta_container()
@@ -38,6 +34,7 @@ with header:
 with dataset:
     st.header('Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars')
     st.text('I extracted these tweets from twitter.com')
+    df = pd.read_csv(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\pre-processed.csv')
     st.write(df.head(5))
 
     st.sidebar.title("Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars:")
@@ -75,6 +72,37 @@ with dataset:
     plt.title('Top 25 Words after preprocessing', fontsize=12, fontweight="bold")
     st.pyplot()
 
+# Diaplay wordcloud images
+
+    html_temp = """
+            <div style="background-color:#0F75EF ;padding:10px">
+            <h2 style="color:white;text-align:center;">
+            Word cloud from Tweets </h2>
+            </div>
+            """
+    st.markdown(html_temp, unsafe_allow_html=True)
+
+# import Image from pillow to open images
+    from PIL import Image
+
+    img = Image.open(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\download.png')
+
+# display image using streamlit
+# width is used to set the width of an image
+    st.image(img, width=600)
+
+
+with topic_modeling:
+
+    st.header('Topic modeling ')
+    html_temp = """
+            <div style="background-color:#025122 ;padding:10px">
+            <h2 style="color:white;text-align:center;">
+            Gensim,Pyldavis - Python </h2>
+            </div>
+            """
+    st.markdown(html_temp, unsafe_allow_html=True)
+
 with vader_sentiment:
     st.header('Vader Sentiment ')
     html_temp = """
@@ -86,9 +114,7 @@ with vader_sentiment:
     st.markdown(html_temp, unsafe_allow_html=True)
     st.header('Vader sentiment analysis for the tweets collected')
     # Create an object of Vader Sentiment Analyzer
-    url2 = 'https://raw.githubusercontent.com/hpsuresh12345/Streamlit/main/data/Vader.csv'
-    download = requests.get(url2).content
-    df1 = pd.read_csv(io.StringIO(download.decode('utf-8')))
+    df1 = pd.read_csv(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\Vader.csv')
     vader_analyzer = SentimentIntensityAnalyzer()
 
     # Draw Plot
@@ -148,5 +174,7 @@ with vader_sentiment:
         st.write("# Negative")
     elif score["pos"] != 0:
         st.write("# Positive")
+
+
 
 
