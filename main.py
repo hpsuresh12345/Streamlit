@@ -161,19 +161,21 @@ with vader_sentiment:
     import nltk
     from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-    st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
+    #st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
 
-    user_input = st.text_input("Enter Tweets of Electric cars >>: ")
-    nltk.download("vader_lexicon")
-    s = SentimentIntensityAnalyzer()
-    score = s.polarity_scores(user_input)
+    #user_input = st.text_input("Enter Tweets of Electric cars >>: ")
+    #nltk.download("vader_lexicon")
+    #s = SentimentIntensityAnalyzer()
+    #score = s.polarity_scores(user_input)
 
-    if score == 0:
-        st.write("Neutral")
-    elif score["neg"] != 0:
-        st.write("# Negative")
-    elif score["pos"] != 0:
-        st.write("# Positive")
+    #if score == 0:
+        #st.write("Neutral")
+    #elif score["neg"] != 0:
+        #st.write("# Negative")
+    #elif score["pos"] != 0:
+        #st.write("# Positive")
+
+
 
 
 
