@@ -1,14 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import nltk
+
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Plotting
 import matplotlib.pyplot as plt
 st.set_option('deprecation.showPyplotGlobalUse', False)
-from PIL import Image
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 st.set_page_config(layout="wide", initial_sidebar_state="expanded")
 import os
 os.getcwd()
@@ -83,7 +81,6 @@ with dataset:
         st.header('Vader sentiment analysis for the tweets collected')
         # Create an object of Vader Sentiment Analyzer
         df1 = pd.read_csv('https://raw.githubusercontent.com/hpsuresh12345/Streamlit/main/data/Vader.csv')
-        vader_analyzer = SentimentIntensityAnalyzer()
 
         # Draw Plot
         fig, ax = plt.subplots(figsize=(10, 6), subplot_kw=dict(aspect="equal"), dpi=80)
