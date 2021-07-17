@@ -139,7 +139,7 @@ with vader_sentiment:
     st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
 
     user_input = st.text_input("Enter Tweets of Electric cars >>: ")
-    nltk.download("vader_lexicon")
+    from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
     s = SentimentIntensityAnalyzer()
     score = s.polarity_scores(user_input)
 
