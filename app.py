@@ -134,18 +134,3 @@ with vader_sentiment:
     plt.title('Number of Tweets per Sentiment', fontsize=12, fontweight="bold")
     plt.ylim(0, len(df1['Tweet Text']))
     st.pyplot()
-
-    # Vader sentiment analyzer
-    st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
-
-    user_input = st.text_input("Enter Tweets of Electric cars >>: ")
-    from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-    s = SentimentIntensityAnalyzer()
-    score = s.polarity_scores(user_input)
-
-    if score == 0:
-        st.write("Neutral")
-    elif score["neg"] != 0:
-        st.write("# Negative")
-    elif score["pos"] != 0:
-        st.write("# Positive")
