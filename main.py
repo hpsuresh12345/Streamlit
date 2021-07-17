@@ -1,25 +1,33 @@
 import streamlit as st
 import sys
+
 sys.setrecursionlimit(55000)
 import pandas as pd
 import numpy as np
 import nltk
 import warnings
 import streamlit.components.v1 as components
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Plotting
 import matplotlib.pyplot as plt
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
 from PIL import Image
-import numpy as np
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+caching.clear_cache()
+st.set_page_config(layout="wide", initial_sidebar_state="expanded")
+
+import os
+# os.chdir('C:\\Users\\hpsur\\PycharmProjects\\PycharmLearning\\Streamlit\\data\\')
+working_directory = os.getcwd()
 
 header = st.beta_container()
 dataset = st.beta_container()
 topic_modeling = st.beta_container()
 vader_sentiment = st.beta_container()
-sonar_sentiment =st.beta_container()
-
+sonar_sentiment = st.beta_container()
 
 with header:
     st.title('Welcome to Suresha HP - Twitter data analytics')
@@ -34,13 +42,14 @@ with header:
 with dataset:
     st.header('Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars')
     st.text('I extracted these tweets from twitter.com')
-    df = pd.read_csv(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\pre-processed.csv')
+
+    df = pd.read_csv(working_directory + '/pre-processed.csv')
     st.write(df.head(5))
 
     st.sidebar.title("Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars:")
     st.markdown("I extracted these tweets from twitter.com:")
     st.sidebar.markdown("I extracted these tweets from twitter.com:")
-# frequency count of column Hashtag
+    # frequency count of column Hashtag
     df_hashtags = df['Hashtag'].value_counts()
     labels = df_hashtags.head(25).index.values.tolist()
     freq = df_hashtags.head(25).values.tolist()
@@ -53,7 +62,7 @@ with dataset:
     plt.xticks(index, labels, fontsize=11, rotation=90, fontweight="bold")
     plt.title('Top 25 Hashtags of dataset', fontsize=12, fontweight="bold")
     st.pyplot()
-# Top 25 Most frequent Words
+    # Top 25 Most frequent Words
     word_freq = pd.Series(np.concatenate([x.split() for x in df.no_stop_joined])).value_counts()
     word_df = pd.Series.to_frame(word_freq)
     word_df['word'] = list(word_df.index)
@@ -64,15 +73,15 @@ with dataset:
     freq = word_df['freq'].head(25)
     index = np.arange(len(freq))
     print("Unique words:", len(word_df))
-    plt.figure(figsize=(12,9))
-    plt.bar(index, freq, alpha=0.8, color= 'green')
+    plt.figure(figsize=(12, 9))
+    plt.bar(index, freq, alpha=0.8, color='green')
     plt.xlabel('Words', fontsize=13)
     plt.ylabel('Frequency', fontsize=13)
     plt.xticks(index, label, fontsize=11, rotation=90, fontweight="bold")
     plt.title('Top 25 Words after preprocessing', fontsize=12, fontweight="bold")
     st.pyplot()
 
-# Diaplay wordcloud images
+    # Diaplay wordcloud images
 
     html_temp = """
             <div style="background-color:#0F75EF ;padding:10px">
@@ -82,18 +91,15 @@ with dataset:
             """
     st.markdown(html_temp, unsafe_allow_html=True)
 
-# import Image from pillow to open images
+    # import Image from pillow to open images
     from PIL import Image
 
-    img = Image.open(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\download.png')
+    img = Image.open(working_directory + '/download.png')
 
-# display image using streamlit
-# width is used to set the width of an image
+    # display image using streamlit
     st.image(img, width=600)
 
-
 with topic_modeling:
-
     st.header('Topic modeling ')
     html_temp = """
             <div style="background-color:#025122 ;padding:10px">
@@ -114,7 +120,7 @@ with vader_sentiment:
     st.markdown(html_temp, unsafe_allow_html=True)
     st.header('Vader sentiment analysis for the tweets collected')
     # Create an object of Vader Sentiment Analyzer
-    df1 = pd.read_csv(r'C:\Users\hpsur\PycharmProjects\PycharmLearning\Streamlit\data\Vader.csv')
+    df1 = pd.read_csv(working_directory + '/Vader.csv')
     vader_analyzer = SentimentIntensityAnalyzer()
 
     # Draw Plot
@@ -161,22 +167,16 @@ with vader_sentiment:
     import nltk
     from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-    #st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
+    st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
 
-    #user_input = st.text_input("Enter Tweets of Electric cars >>: ")
-    #nltk.download("vader_lexicon")
-    #s = SentimentIntensityAnalyzer()
-    #score = s.polarity_scores(user_input)
+    user_input = st.text_input("Enter Tweets of Electric cars >>: ")
+    nltk.download("vader_lexicon")
+    s = SentimentIntensityAnalyzer()
+    score = s.polarity_scores(user_input)
 
-    #if score == 0:
-        #st.write("Neutral")
-    #elif score["neg"] != 0:
-        #st.write("# Negative")
-    #elif score["pos"] != 0:
-        #st.write("# Positive")
-
-
-
-
-
-
+    if score == 0:
+        st.write("Neutral")
+    elif score["neg"] != 0:
+        st.write("# Negative")
+    elif score["pos"] != 0:
+        st.write("# Positive")
