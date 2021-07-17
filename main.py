@@ -1,27 +1,19 @@
 import streamlit as st
-import sys
-
-sys.setrecursionlimit(55000)
 import pandas as pd
 import numpy as np
 import nltk
 import warnings
-import streamlit.components.v1 as components
-
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Plotting
 import matplotlib.pyplot as plt
-
 st.set_option('deprecation.showPyplotGlobalUse', False)
 from PIL import Image
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
-caching.clear_cache()
 st.set_page_config(layout="wide", initial_sidebar_state="expanded")
-
+from pathlib import Path
 import os
-# os.chdir('C:\\Users\\hpsur\\PycharmProjects\\PycharmLearning\\Streamlit\\data\\')
-working_directory = os.getcwd()
+os.getcwd()
+data_folder = Path("C:/Users/hpsur/PycharmProjects/PycharmLearning/Streamlit/data")
 
 header = st.beta_container()
 dataset = st.beta_container()
@@ -43,7 +35,8 @@ with dataset:
     st.header('Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars')
     st.text('I extracted these tweets from twitter.com')
 
-    df = pd.read_csv(working_directory + '/pre-processed.csv')
+    df_data = data_folder / "pre-processed.csv"
+    df = pd.read_csv(df_data)
     st.write(df.head(5))
 
     st.sidebar.title("Twitter data of 45000 tweets extracted for 40 Hashtags related to Electric cars:")
@@ -92,9 +85,8 @@ with dataset:
     st.markdown(html_temp, unsafe_allow_html=True)
 
     # import Image from pillow to open images
-    from PIL import Image
 
-    img = Image.open(working_directory + '/download.png')
+    img = Image.open(data_folder / "download.png")
 
     # display image using streamlit
     st.image(img, width=600)
@@ -120,7 +112,8 @@ with vader_sentiment:
     st.markdown(html_temp, unsafe_allow_html=True)
     st.header('Vader sentiment analysis for the tweets collected')
     # Create an object of Vader Sentiment Analyzer
-    df1 = pd.read_csv(working_directory + '/Vader.csv')
+    df1_data = data_folder / "Vader.csv"
+    df1 = pd.read_csv(df1_data)
     vader_analyzer = SentimentIntensityAnalyzer()
 
     # Draw Plot
@@ -164,9 +157,6 @@ with vader_sentiment:
     st.pyplot()
 
     # Vader sentiment analyzer
-    import nltk
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer
-
     st.write("### Real Time Sentiment Analysis of Electric cars (Vader Sentiment)")
 
     user_input = st.text_input("Enter Tweets of Electric cars >>: ")
