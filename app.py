@@ -145,7 +145,7 @@ from nltk import ngrams
 from nltk.corpus import stopwords
 from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
-nltk.data.path.append('nltk_data')
+nltk.download('popular')
 
 # setting background image from local host
 import base64
