@@ -418,7 +418,7 @@ def main():
     format_temp = """
 <br><br><br>
 
-Developed by: "https://www.linkedin.com/in/sureshhp/">
+Developed by: "https://www.linkedin.com/in/sureshhp/"
 
 """
 
