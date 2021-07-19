@@ -3,12 +3,15 @@ import pandas as pd
 import numpy as np
 
 import warnings
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 # Plotting
 import matplotlib.pyplot as plt
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout="wide", initial_sidebar_state="expanded")
 import os
+
 os.getcwd()
 
 header = st.beta_container()
@@ -145,6 +148,7 @@ from nltk import ngrams
 from nltk.corpus import stopwords
 from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
+
 nltk.download('popular')
 
 # setting background image from local host
@@ -355,12 +359,12 @@ def main():
         try:
             sia = SentimentIntensityAnalyzer()
             sent_claf = sia.polarity_scores(str(text))
-            if sent_claf['pos'] > 0.5:
-                st.write(f"Positive Review: {round(sent_claf['pos'] * 100)}%")
-            elif sent_claf['neg'] > 0.5:
-                st.write(f"Negative Review: {round(sent_claf['neg'] * 100)}%")
-            else:
-                st.write('Neutral Review')
+            if sent_claf == 0:
+                st.write("Neutral")
+            elif sent_claf["neg"] != 0:
+                st.write("# Negative")
+            elif sent_claf["pos"] != 0:
+                st.write("# Positive")
         except:
             st.markdown('*Error, check your text!*')
 
@@ -370,10 +374,6 @@ def main():
             if st.button('Gensim'):
                 from gensim.summarization import summarize
                 st.write(f"The summary using gensim:\n\n {summarize(str(text))}")
-            if st.button('Summa'):
-                from summa.summarizer import summarize
-                st.write(f"The summary using summa:\n\n {summarize(str(text))}\n")
-                st.markdown("**No major difference between Gensim and Summa!**")
         except:
             st.markdown('*Input must be more than one sentence!*')
 
@@ -427,4 +427,3 @@ Developed by: <span><a href="https://www.linkedin.com/in/sureshhp/"><b><button>S
 
 if __name__ == '__main__':
     main()
-
