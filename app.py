@@ -148,6 +148,7 @@ from nltk import ngrams
 from nltk.corpus import stopwords
 from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
+nltk.downloader.download('vader_lexicon')
 
 nltk.download('popular')
 
@@ -417,8 +418,7 @@ def main():
     format_temp = """
 <br><br><br>
 
-Developed by: <span><a href="https://www.linkedin.com/in/sureshhp/"><b><button>Suresha PARASHIVAMURTHY</button></b></a>
-</span>
+Developed by: "https://www.linkedin.com/in/sureshhp/"
 
 """
 
