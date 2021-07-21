@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
 import warnings
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -343,7 +342,7 @@ def main():
                  'Ukrainian': 'uk',
                  'Hindi': 'hi', 'Urdu': 'ur', 'Hungarian': 'hu', 'Vietnamese': 'vi', 'Icelandic': 'is', 'Welsh': 'cy',
                  'Indonesian': 'id',
-                 'Yiddish': 'yi'}
+                 'Yiddish': 'yi','Punjabi': 'pu', 'Kannada': 'kn'}
 
     # word translation using google translate
     if st.checkbox('Translate'):
